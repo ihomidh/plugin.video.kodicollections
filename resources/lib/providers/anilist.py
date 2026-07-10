@@ -5,9 +5,7 @@ import urllib.request
 URL = "https://graphql.anilist.co"
 
 
-
 def request(extra):
-
 
     query = """
     query {
@@ -23,24 +21,34 @@ def request(extra):
           }
 
           coverImage {
+            extraLarge
             large
           }
 
+          bannerImage
+
+          description(
+            asHtml: false
+          )
+
+          averageScore
+
+          episodes
+
+          seasonYear
+
+          genres
         }
       }
     }
     """ % extra
 
 
-
     payload = json.dumps(
         {
             "query": query
         }
-    ).encode(
-        "utf-8"
-    )
-
+    ).encode("utf-8")
 
 
     req = urllib.request.Request(
@@ -61,22 +69,15 @@ def request(extra):
     )
 
 
-
-    response = urllib.request.urlopen(
-        req
-    )
+    response = urllib.request.urlopen(req)
 
 
     data = json.loads(
-        response.read().decode(
-            "utf-8"
-        )
+        response.read().decode("utf-8")
     )
 
 
-
     results = []
-
 
 
     for anime in data["data"]["Page"]["media"]:
@@ -88,17 +89,48 @@ def request(extra):
         )
 
 
+        poster = (
+            anime["coverImage"]["extraLarge"]
+            or anime["coverImage"]["large"]
+        )
+
+
         results.append(
             {
                 "title": title,
-                "poster": anime["coverImage"]["large"]
+
+                "poster": poster,
+
+                "thumb": poster,
+
+                "fanart": anime.get(
+                    "bannerImage"
+                ),
+
+                "plot": anime.get(
+                    "description"
+                ),
+
+                "score": anime.get(
+                    "averageScore"
+                ),
+
+                "episodes": anime.get(
+                    "episodes"
+                ),
+
+                "year": anime.get(
+                    "seasonYear"
+                ),
+
+                "genres": anime.get(
+                    "genres"
+                )
             }
         )
 
 
-
     return results
-
 
 
 
@@ -110,7 +142,6 @@ def trending():
     )
 
 
-
 def popular():
 
     return request(
@@ -118,13 +149,11 @@ def popular():
     )
 
 
-
 def top():
 
     return request(
         "sort: [SCORE_DESC]"
     )
-
 
 
 def movies():
@@ -135,7 +164,6 @@ def movies():
         sort: [POPULARITY_DESC]
         """
     )
-
 
 
 def season():
@@ -149,7 +177,6 @@ def season():
     )
 
 
-
 def action():
 
     return request(
@@ -160,7 +187,6 @@ def action():
     )
 
 
-
 def comedy():
 
     return request(
@@ -169,7 +195,6 @@ def comedy():
         sort: [POPULARITY_DESC]
         """
     )
-
 
 
 def isekai():

@@ -26,6 +26,7 @@ class Router:
 
     def run(self, argv):
 
+
         action = self.params.get(
             "action"
         )
@@ -64,7 +65,9 @@ class Router:
         file.close()
 
 
-        data = json.loads(content)
+        data = json.loads(
+            content
+        )
 
 
         return data.get(
@@ -108,6 +111,7 @@ class Router:
         xbmcplugin.endOfDirectory(
             self.handle
         )
+
 
 
 
@@ -247,10 +251,64 @@ class Router:
 
             item.setArt(
                 {
-                    "poster": anime["poster"],
-                    "thumb": anime["poster"]
+                    "poster": anime.get(
+                        "poster",
+                        ""
+                    ),
+
+                    "thumb": anime.get(
+                        "poster",
+                        ""
+                    ),
+
+                    "fanart": anime.get(
+                        "fanart",
+                        ""
+                    )
                 }
             )
+
+
+
+            item.setInfo(
+                "video",
+                {
+                    "title": title,
+
+                    "plot": anime.get(
+                        "plot",
+                        ""
+                    ),
+
+                    "year": anime.get(
+                        "year",
+                        0
+                    ),
+
+                    "rating": (
+                        anime.get(
+                            "score",
+                            0
+                        )
+                        / 10
+                        if anime.get("score")
+                        else 0
+                    ),
+
+                    "genre": ", ".join(
+                        anime.get(
+                            "genres",
+                            []
+                        )
+                    ),
+
+                    "episode": anime.get(
+                        "episodes",
+                        0
+                    )
+                }
+            )
+
 
 
 
@@ -272,7 +330,6 @@ class Router:
                 item,
                 True
             )
-
 
 
 
