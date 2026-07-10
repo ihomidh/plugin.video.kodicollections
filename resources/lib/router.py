@@ -1,5 +1,10 @@
+import os
+
+import xbmcaddon
 import xbmcgui
 import xbmcplugin
+
+from resources.lib.json_loader import JsonLoader
 
 
 class Router:
@@ -8,19 +13,20 @@ class Router:
 
         handle = int(argv[1])
 
-        menus = [
-            "🔥 Trending",
-            "⭐ Popular",
-            "🆕 New Releases",
-            "📺 Streaming Services",
-            "🎬 Collections",
-            "🎭 Genres",
-            "❤️ Trakt",
-            "⚙ Settings"
-        ]
+        addon = xbmcaddon.Addon()
+
+        addon_path = addon.getAddonInfo("path")
+
+        loader = JsonLoader(addon_path)
+
+        data = loader.load()
+
+        menus = data.get("menus", [])
 
         for menu in menus:
-            item = xbmcgui.ListItem(label=menu)
+
+            item = xbmcgui.ListItem(label=menu["title"])
+
             xbmcplugin.addDirectoryItem(
                 handle,
                 "",
