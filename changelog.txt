@@ -1,0 +1,8 @@
+Kodi Collections
+
+Version 0.0.1
+
+- Initial project structure.
+- Router created.
+- Settings added.
+- Basic menu.

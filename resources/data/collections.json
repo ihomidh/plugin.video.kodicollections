@@ -1,0 +1,32 @@
+{
+    "menus": [
+        {
+            "id": "trending",
+            "title": "🔥 Trending"
+        },
+        {
+            "id": "popular",
+            "title": "⭐ Popular"
+        },
+        {
+            "id": "new",
+            "title": "🆕 New Releases"
+        },
+        {
+            "id": "streaming",
+            "title": "📺 Streaming Services"
+        },
+        {
+            "id": "collections",
+            "title": "🎬 Collections"
+        },
+        {
+            "id": "genres",
+            "title": "🎭 Genres"
+        },
+        {
+            "id": "trakt",
+            "title": "❤️ Trakt"
+        }
+    ]
+}

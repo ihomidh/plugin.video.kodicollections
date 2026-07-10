@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<settings version="1">
+
+    <category label="General">
+
+        <setting id="json_source"
+                 type="string"
+                 label="JSON Source URL"
+                 default="" />
+
+        <setting id="cache_time"
+                 type="integer"
+                 label="Cache Time (minutes)"
+                 default="60" />
+
+    </category>
+
+</settings>

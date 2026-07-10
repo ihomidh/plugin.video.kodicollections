@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+    id="plugin.video.kodicollections"
+    name="Kodi Collections"
+    version="0.0.1"
+    provider-name="ihomidh">
+
+    <requires>
+        <import addon="xbmc.python" version="3.0.1"/>
+    </requires>
+
+    <extension
+        point="xbmc.python.pluginsource"
+        library="default.py">
+
+        <provides>video</provides>
+
+    </extension>
+
+    <extension point="xbmc.addon.metadata">
+
+        <summary>Kodi Collections</summary>
+
+        <description>
+            JSON Collections Browser
+        </description>
+
+        <platform>all</platform>
+
+        <license>MIT</license>
+
+        <source>
+            https://github.com/ihomidh/plugin.video.kodicollections
+        </source>
+
+    </extension>
+
+</addon>
