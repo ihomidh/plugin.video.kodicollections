@@ -23,7 +23,9 @@ class Router:
         )
 
 
+
     def run(self, argv):
+
 
         action = self.params.get(
             "action"
@@ -35,9 +37,16 @@ class Router:
             self.open_section()
 
 
+        elif action == "anilist":
+
+            self.open_anilist()
+
+
         else:
 
             self.home()
+
+
 
 
 
@@ -51,24 +60,17 @@ class Router:
 
         try:
 
-            file = xbmcvfs.File(
-                path
-            )
+            file = xbmcvfs.File(path)
 
             content = file.read()
 
             file.close()
 
 
-            data = json.loads(
-                content
-            )
+            data = json.loads(content)
 
 
-            if isinstance(
-                data,
-                dict
-            ):
+            if isinstance(data, dict):
 
                 return data.get(
                     "sections",
@@ -76,10 +78,7 @@ class Router:
                 )
 
 
-            if isinstance(
-                data,
-                list
-            ):
+            if isinstance(data, list):
 
                 return data
 
@@ -87,18 +86,22 @@ class Router:
             return []
 
 
-        except Exception as error:
+
+        except Exception as e:
 
 
             xbmcgui.Dialog().notification(
                 "Kodi Collections",
-                str(error),
+                "JSON Error",
                 xbmcgui.NOTIFICATION_ERROR,
                 5000
             )
 
 
             return []
+
+
+
 
 
 
@@ -112,9 +115,11 @@ class Router:
         for section in sections:
 
 
-            title = section.get(
-                "title",
-                "No Title"
+            item = xbmcgui.ListItem(
+                label=section.get(
+                    "title",
+                    "No Title"
+                )
             )
 
 
@@ -125,11 +130,6 @@ class Router:
                     "id",
                     ""
                 )
-            )
-
-
-            item = xbmcgui.ListItem(
-                label=title
             )
 
 
@@ -149,6 +149,8 @@ class Router:
 
 
 
+
+
     def open_section(self):
 
 
@@ -160,12 +162,10 @@ class Router:
         sections = self.load_collections()
 
 
-
         for section in sections:
 
 
             if section.get("id") == section_id:
-
 
 
                 for entry in section.get(
@@ -174,21 +174,36 @@ class Router:
                 ):
 
 
-                    title = entry.get(
-                        "title",
-                        "No Title"
-                    )
-
-
-                    url = entry.get(
-                        "action",
-                        ""
-                    )
-
-
                     item = xbmcgui.ListItem(
-                        label=title
+                        label=entry.get(
+                            "title",
+                            "No Title"
+                        )
                     )
+
+
+
+                    if entry.get("provider") == "anilist":
+
+
+                        url = (
+                            self.base_url
+                            + "?action=anilist&type="
+                            + entry.get(
+                                "type",
+                                "trending"
+                            )
+                        )
+
+
+                    else:
+
+
+                        url = entry.get(
+                            "action",
+                            ""
+                        )
+
 
 
                     xbmcplugin.addDirectoryItem(
@@ -197,6 +212,99 @@ class Router:
                         item,
                         True
                     )
+
+
+
+        xbmcplugin.endOfDirectory(
+            self.handle
+        )
+
+
+
+
+
+
+    def open_anilist(self):
+
+
+        try:
+
+            from resources.lib.providers import anilist
+
+
+            anime_type = self.params.get(
+                "type",
+                "trending"
+            )
+
+
+            if anime_type == "popular":
+
+                results = anilist.popular()
+
+
+            elif anime_type == "top":
+
+                results = anilist.top()
+
+
+            else:
+
+                results = anilist.trending()
+
+
+
+
+
+            for anime in results:
+
+
+                title = anime["title"]
+
+
+                item = xbmcgui.ListItem(
+                    label=title
+                )
+
+
+                item.setArt(
+                    {
+                        "poster": anime["poster"],
+                        "thumb": anime["poster"]
+                    }
+                )
+
+
+                url = (
+                    "plugin://plugin.video.themoviedb.helper/"
+                    "?info=search"
+                    "&tmdb_type=tv"
+                    "&query="
+                    + urllib.parse.quote(
+                        title
+                    )
+                )
+
+
+                xbmcplugin.addDirectoryItem(
+                    self.handle,
+                    url,
+                    item,
+                    True
+                )
+
+
+
+
+        except Exception as e:
+
+
+            xbmcgui.Dialog().notification(
+                "AniList",
+                "Connection Error",
+                xbmcgui.NOTIFICATION_ERROR,
+                5000
+            )
 
 
 

@@ -9,7 +9,7 @@
 
                 {
                     "title": "Trending Movies",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=trending&tmdb_type=movie"
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=trending_day&tmdb_type=movie"
                 },
 
                 {
@@ -33,17 +33,17 @@
             "items": [
 
                 {
-                    "title": "Trending TV Shows",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=trending&tmdb_type=tv"
+                    "title": "Trending Shows",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=trending_week&tmdb_type=tv"
                 },
 
                 {
-                    "title": "Popular TV Shows",
+                    "title": "Popular Shows",
                     "action": "plugin://plugin.video.themoviedb.helper/?info=popular&tmdb_type=tv"
                 },
 
                 {
-                    "title": "Top Rated TV Shows",
+                    "title": "Top Rated Shows",
                     "action": "plugin://plugin.video.themoviedb.helper/?info=top_rated&tmdb_type=tv"
                 }
 
@@ -58,48 +58,51 @@
             "items": [
 
                 {
-                    "title": "One Piece",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=tv&query=One%20Piece"
+                    "title": "🔥 Trending Anime",
+                    "provider": "anilist",
+                    "type": "trending"
                 },
 
                 {
-                    "title": "Naruto",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=tv&query=Naruto"
+                    "title": "⭐ Popular Anime",
+                    "provider": "anilist",
+                    "type": "popular"
                 },
 
                 {
-                    "title": "Attack On Titan",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=tv&query=Attack%20On%20Titan"
+                    "title": "🏆 Top Rated Anime",
+                    "provider": "anilist",
+                    "type": "top"
+                }
+
+            ]
+        },
+
+
+        {
+            "id": "collections",
+            "title": "Collections",
+            "image": "collections.png",
+            "items": [
+
+                {
+                    "title": "Marvel Universe",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=Marvel"
                 },
 
                 {
-                    "title": "Demon Slayer",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=tv&query=Demon%20Slayer"
+                    "title": "DC Universe",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=Batman"
                 },
 
                 {
-                    "title": "Jujutsu Kaisen",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=tv&query=Jujutsu%20Kaisen"
+                    "title": "Star Wars",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=Star%20Wars"
                 },
 
                 {
-                    "title": "Spirited Away",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=Spirited%20Away"
-                },
-
-                {
-                    "title": "My Neighbor Totoro",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=My%20Neighbor%20Totoro"
-                },
-
-                {
-                    "title": "Princess Mononoke",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=Princess%20Mononoke"
-                },
-
-                {
-                    "title": "Howl's Moving Castle",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=Howl%27s%20Moving%20Castle"
+                    "title": "Harry Potter",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=Harry%20Potter"
                 }
 
             ]
@@ -111,11 +114,6 @@
             "title": "Trakt",
             "image": "trakt.png",
             "items": [
-
-                {
-                    "title": "Continue Watching",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=trakt_inprogress"
-                },
 
                 {
                     "title": "Watchlist",
