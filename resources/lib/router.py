@@ -113,6 +113,7 @@ class Router:
 
 
 
+
     def open_section(self):
 
         section_id = self.params.get(
@@ -134,7 +135,9 @@ class Router:
                     )
 
 
-                    if entry.get("provider") == "anilist":
+                    if entry.get(
+                        "provider"
+                    ) == "anilist":
 
 
                         url = (
@@ -153,14 +156,12 @@ class Router:
                         )
 
 
-
                     xbmcplugin.addDirectoryItem(
                         self.handle,
                         url,
                         item,
                         True
                     )
-
 
 
         xbmcplugin.endOfDirectory(
@@ -175,9 +176,12 @@ class Router:
 
 
 
+
+
     def open_anilist(self):
 
         from resources.lib.providers import anilist
+        from resources.lib.providers import tmdb
 
 
         xbmcplugin.setContent(
@@ -189,6 +193,7 @@ class Router:
         anime_type = self.params.get(
             "type"
         )
+
 
 
 
@@ -263,6 +268,7 @@ class Router:
 
 
 
+
         for anime in results:
 
 
@@ -275,6 +281,7 @@ class Router:
 
 
 
+
             item.setArt(
                 {
 
@@ -284,11 +291,13 @@ class Router:
                         ""
                     ),
 
+
                     "thumb":
                     anime.get(
                         "poster",
                         ""
                     ),
+
 
                     "fanart":
                     anime.get(
@@ -298,7 +307,6 @@ class Router:
 
                 }
             )
-
 
 
 
@@ -321,6 +329,7 @@ class Router:
 
 
 
+
             item.setInfo(
                 "video",
                 {
@@ -328,11 +337,13 @@ class Router:
                     "title":
                     title,
 
+
                     "plot":
                     anime.get(
                         "plot",
                         ""
                     ),
+
 
                     "year":
                     anime.get(
@@ -340,8 +351,10 @@ class Router:
                         0
                     ),
 
+
                     "rating":
                     rating,
+
 
                     "genre":
                     ", ".join(
@@ -359,22 +372,54 @@ class Router:
 
 
 
-            search = urllib.parse.quote(
+
+
+            tmdb_id = tmdb.find_tv(
                 anime.get(
                     "original_title",
                     title
+                ),
+
+                anime.get(
+                    "year"
                 )
             )
 
 
 
-            url = (
-                "plugin://plugin.video.themoviedb.helper/"
-                "?info=search"
-                "&tmdb_type=tv"
-                "&query="
-                + search
-            )
+
+
+
+
+            if tmdb_id:
+
+
+                url = (
+                    "plugin://plugin.video.themoviedb.helper/"
+                    "?info=tvshow"
+                    "&tmdb_id="
+                    + str(tmdb_id)
+                )
+
+
+
+            else:
+
+
+                search = urllib.parse.quote(
+                    title
+                )
+
+
+                url = (
+                    "plugin://plugin.video.themoviedb.helper/"
+                    "?info=search"
+                    "&tmdb_type=tv"
+                    "&query="
+                    + search
+                )
+
+
 
 
 
@@ -385,6 +430,8 @@ class Router:
                 item,
                 True
             )
+
+
 
 
 

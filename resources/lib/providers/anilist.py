@@ -10,15 +10,19 @@ def request(extra):
 
     query = """
     query {
-      Page(page: 1, perPage: 25) {
+      Page(page:1, perPage:25) {
         media(
-          type: ANIME,
+          type:ANIME,
           %s
         ) {
+
+          id
+          idMal
 
           title {
             romaji
             english
+            native
           }
 
           coverImage {
@@ -48,7 +52,7 @@ def request(extra):
 
     payload = json.dumps(
         {
-            "query": query
+            "query":query
         }
     ).encode("utf-8")
 
@@ -73,7 +77,9 @@ def request(extra):
 
 
 
-    response = urllib.request.urlopen(req)
+    response = urllib.request.urlopen(
+        req
+    )
 
 
     data = json.loads(
@@ -84,11 +90,12 @@ def request(extra):
 
 
 
-    results = []
+    results=[]
 
 
 
     for anime in data["data"]["Page"]["media"]:
+
 
 
         title = (
@@ -98,15 +105,10 @@ def request(extra):
         )
 
 
-        poster = (
-            anime["coverImage"]["extraLarge"]
-            or
-            anime["coverImage"]["large"]
-        )
-
 
         results.append(
             {
+
 
                 "title":
                 title,
@@ -116,8 +118,14 @@ def request(extra):
                 anime["title"]["romaji"],
 
 
+                "mal_id":
+                anime.get(
+                    "idMal"
+                ),
+
+
                 "poster":
-                poster,
+                anime["coverImage"]["extraLarge"],
 
 
                 "fanart":
@@ -158,6 +166,7 @@ def request(extra):
 
             }
         )
+
 
 
     return results
@@ -205,9 +214,7 @@ def movies():
 def season():
 
     return request(
-        """
-        sort:[TRENDING_DESC]
-        """
+        "sort:[TRENDING_DESC]"
     )
 
 
@@ -248,8 +255,7 @@ def isekai():
 
 def search(text):
 
-
-    text = text.replace(
+    text=text.replace(
         '"',
         ''
     )
