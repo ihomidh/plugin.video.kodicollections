@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.video.kodicollections"
        name="Kodi Collections"
        version="0.0.1"
@@ -8,15 +8,17 @@
         <import addon="xbmc.python" version="3.0.1"/>
     </requires>
 
-    <extension point="xbmc.python.pluginsource" library="default.py">
+    <extension point="xbmc.python.pluginsource"
+               library="default.py">
         <provides>video</provides>
     </extension>
 
     <extension point="xbmc.addon.metadata">
-        <summary>Kodi Collections for Arctic Horizon 2</summary>
-        <description>Browse JSON collections with TMDb Helper support.</description>
+        <summary>Kodi Collections</summary>
+        <description>Collections browser for Kodi with TMDb Helper, Trakt and Arctic Horizon 2 support.</description>
         <platform>all</platform>
         <license>MIT</license>
+        <source>https://github.com/ihomidh/plugin.video.kodicollections</source>
     </extension>
 
 </addon>
