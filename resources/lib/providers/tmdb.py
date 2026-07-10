@@ -2,12 +2,38 @@ import json
 import urllib.request
 import urllib.parse
 
+import xbmcaddon
 
-API_KEY = "5b91cf02dcacac6e4301fac5021b128b"
+
+
+addon = xbmcaddon.Addon()
+
+
+
+def get_api_key():
+
+    return addon.getSetting(
+        "tmdb_api"
+    )
+
+
+
 
 
 
 def find_tv(title, year=None):
+
+
+    api_key = get_api_key()
+
+
+
+    if not api_key:
+
+        return None
+
+
+
 
 
     query = urllib.parse.quote(
@@ -15,13 +41,15 @@ def find_tv(title, year=None):
     )
 
 
+
     url = (
         "https://api.themoviedb.org/3/search/tv"
         "?api_key="
-        + API_KEY
+        + api_key
         + "&query="
         + query
     )
+
 
 
     if year:
@@ -33,9 +61,11 @@ def find_tv(title, year=None):
 
 
 
+
     req = urllib.request.Request(
         url
     )
+
 
 
     req.add_header(
@@ -45,9 +75,11 @@ def find_tv(title, year=None):
 
 
 
+
     response = urllib.request.urlopen(
         req
     )
+
 
 
     data = json.loads(
@@ -58,10 +90,12 @@ def find_tv(title, year=None):
 
 
 
+
     results = data.get(
         "results",
         []
     )
+
 
 
 
@@ -71,4 +105,7 @@ def find_tv(title, year=None):
 
 
 
-    return results[0]["id"]
+
+    return results[0].get(
+        "id"
+    )

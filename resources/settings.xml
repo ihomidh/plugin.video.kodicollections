@@ -1,17 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<settings version="1">
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <category label="General">
+<settings>
 
-        <setting id="json_source"
-                 type="string"
-                 label="JSON Source URL"
-                 default="" />
+    <category label="Accounts">
 
-        <setting id="cache_time"
-                 type="integer"
-                 label="Cache Time (minutes)"
-                 default="60" />
+        <setting
+            id="tmdb_api"
+            type="text"
+            label="TMDb API Key"
+            default=""
+        />
 
     </category>
 
