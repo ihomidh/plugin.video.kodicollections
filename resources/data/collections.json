@@ -1,56 +1,5 @@
 {
     "sections": [
-
-        {
-            "id": "movies",
-            "title": "Movies",
-            "image": "movies.png",
-            "items": [
-
-                {
-                    "title": "Trending Movies",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=trending_day&tmdb_type=movie"
-                },
-
-                {
-                    "title": "Popular Movies",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=popular&tmdb_type=movie"
-                },
-
-                {
-                    "title": "Top Rated Movies",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=top_rated&tmdb_type=movie"
-                }
-
-            ]
-        },
-
-
-        {
-            "id": "shows",
-            "title": "TV Shows",
-            "image": "shows.png",
-            "items": [
-
-                {
-                    "title": "Trending Shows",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=trending_week&tmdb_type=tv"
-                },
-
-                {
-                    "title": "Popular Shows",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=popular&tmdb_type=tv"
-                },
-
-                {
-                    "title": "Top Rated Shows",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=top_rated&tmdb_type=tv"
-                }
-
-            ]
-        },
-
-
         {
             "id": "anime",
             "title": "Anime",
@@ -103,55 +52,24 @@
                     "title": "Isekai Anime",
                     "provider": "anilist",
                     "type": "isekai"
-                }
-
-            ]
-        },
-
-
-        {
-            "id": "collections",
-            "title": "Collections",
-            "image": "collections.png",
-            "items": [
-
-                {
-                    "title": "Marvel Universe",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=Marvel"
                 },
 
                 {
-                    "title": "DC Universe",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=Batman"
+                    "title": "Anime Search",
+                    "provider": "anilist",
+                    "type": "search"
                 },
 
                 {
-                    "title": "Star Wars",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=Star%20Wars"
+                    "title": "Continue Watching",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=trakt_progress&type=shows"
                 },
 
                 {
-                    "title": "Harry Potter",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=Harry%20Potter"
+                    "title": "Anime Watchlist",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=trakt_watchlist&type=shows"
                 }
-
-            ]
-        },
-
-
-        {
-            "id": "trakt",
-            "title": "Trakt",
-            "image": "trakt.png",
-            "items": [
-
-                {
-                    "title": "Watchlist",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=trakt_watchlist"
-                }
-
             ]
         }
-
     ]
 }

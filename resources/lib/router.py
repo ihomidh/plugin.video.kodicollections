@@ -26,7 +26,6 @@ class Router:
 
     def run(self, argv):
 
-
         action = self.params.get(
             "action"
         )
@@ -52,22 +51,18 @@ class Router:
 
     def load_collections(self):
 
-
         path = xbmcvfs.translatePath(
             "special://home/addons/plugin.video.kodicollections/resources/data/collections.json"
         )
 
 
-        file = xbmcvfs.File(path)
-
-        content = file.read()
-
-        file.close()
-
+        f = xbmcvfs.File(path)
 
         data = json.loads(
-            content
+            f.read()
         )
+
+        f.close()
 
 
         return data.get(
@@ -136,7 +131,6 @@ class Router:
                 for entry in section["items"]:
 
 
-
                     item = xbmcgui.ListItem(
                         label=entry["title"]
                     )
@@ -156,8 +150,10 @@ class Router:
                     else:
 
 
-                        url = entry["action"]
-
+                        url = entry.get(
+                            "action",
+                            ""
+                        )
 
 
 
@@ -181,10 +177,17 @@ class Router:
 
 
 
+
     def open_anilist(self):
 
 
         from resources.lib.providers import anilist
+
+
+        xbmcplugin.setContent(
+            self.handle,
+            "tvshows"
+        )
 
 
         anime_type = self.params.get(
@@ -193,9 +196,37 @@ class Router:
 
 
 
-        if anime_type == "popular":
+        if anime_type == "search":
+
+
+            text = xbmcgui.Dialog().input(
+                "Search Anime"
+            )
+
+
+            if not text:
+
+
+                xbmcplugin.endOfDirectory(
+                    self.handle
+                )
+
+
+                return
+
+
+
+            results = anilist.search(
+                text
+            )
+
+
+
+
+        elif anime_type == "popular":
 
             results = anilist.popular()
+
 
 
         elif anime_type == "top":
@@ -203,9 +234,11 @@ class Router:
             results = anilist.top()
 
 
+
         elif anime_type == "movies":
 
             results = anilist.movies()
+
 
 
         elif anime_type == "season":
@@ -213,9 +246,11 @@ class Router:
             results = anilist.season()
 
 
+
         elif anime_type == "action":
 
             results = anilist.action()
+
 
 
         elif anime_type == "comedy":
@@ -223,14 +258,19 @@ class Router:
             results = anilist.comedy()
 
 
+
         elif anime_type == "isekai":
 
             results = anilist.isekai()
 
 
+
         else:
 
             results = anilist.trending()
+
+
+
 
 
 
@@ -249,19 +289,23 @@ class Router:
 
 
 
+
             item.setArt(
                 {
-                    "poster": anime.get(
+                    "poster":
+                    anime.get(
                         "poster",
                         ""
                     ),
 
-                    "thumb": anime.get(
+                    "thumb":
+                    anime.get(
                         "poster",
                         ""
                     ),
 
-                    "fanart": anime.get(
+                    "fanart":
+                    anime.get(
                         "fanart",
                         ""
                     )
@@ -270,45 +314,70 @@ class Router:
 
 
 
+
+            rating = 0
+
+
+            if anime.get("score"):
+
+
+                rating = (
+                    anime["score"]
+                    /
+                    10
+                )
+
+
+
+
+
             item.setInfo(
                 "video",
                 {
-                    "title": title,
 
-                    "plot": anime.get(
+                    "title":
+                    title,
+
+
+                    "plot":
+                    anime.get(
                         "plot",
                         ""
                     ),
 
-                    "year": anime.get(
+
+                    "year":
+                    anime.get(
                         "year",
                         0
                     ),
 
-                    "rating": (
-                        anime.get(
-                            "score",
-                            0
-                        )
-                        / 10
-                        if anime.get("score")
-                        else 0
-                    ),
 
-                    "genre": ", ".join(
+                    "rating":
+                    rating,
+
+
+                    "genre":
+                    ", ".join(
                         anime.get(
                             "genres",
                             []
                         )
-                    ),
-
-                    "episode": anime.get(
-                        "episodes",
-                        0
                     )
+
                 }
             )
 
+
+
+
+
+            search = urllib.parse.quote(
+                anime.get(
+                    "original_title",
+                    title
+                )
+            )
 
 
 
@@ -317,9 +386,7 @@ class Router:
                 "?info=search"
                 "&tmdb_type=tv"
                 "&query="
-                + urllib.parse.quote(
-                    title
-                )
+                + search
             )
 
 
@@ -330,6 +397,7 @@ class Router:
                 item,
                 True
             )
+
 
 
 
