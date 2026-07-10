@@ -26,7 +26,6 @@ class Router:
 
     def run(self, argv):
 
-
         action = self.params.get(
             "action"
         )
@@ -58,47 +57,20 @@ class Router:
         )
 
 
-        try:
+        file = xbmcvfs.File(path)
 
-            file = xbmcvfs.File(path)
+        content = file.read()
 
-            content = file.read()
-
-            file.close()
+        file.close()
 
 
-            data = json.loads(content)
+        data = json.loads(content)
 
 
-            if isinstance(data, dict):
-
-                return data.get(
-                    "sections",
-                    []
-                )
-
-
-            if isinstance(data, list):
-
-                return data
-
-
-            return []
-
-
-
-        except Exception as e:
-
-
-            xbmcgui.Dialog().notification(
-                "Kodi Collections",
-                "JSON Error",
-                xbmcgui.NOTIFICATION_ERROR,
-                5000
-            )
-
-
-            return []
+        return data.get(
+            "sections",
+            []
+        )
 
 
 
@@ -109,27 +81,18 @@ class Router:
     def home(self):
 
 
-        sections = self.load_collections()
-
-
-        for section in sections:
+        for section in self.load_collections():
 
 
             item = xbmcgui.ListItem(
-                label=section.get(
-                    "title",
-                    "No Title"
-                )
+                label=section["title"]
             )
 
 
             url = (
                 self.base_url
                 + "?action=section&id="
-                + section.get(
-                    "id",
-                    ""
-                )
+                + section["id"]
             )
 
 
@@ -151,6 +114,7 @@ class Router:
 
 
 
+
     def open_section(self):
 
 
@@ -159,26 +123,18 @@ class Router:
         )
 
 
-        sections = self.load_collections()
+        for section in self.load_collections():
 
 
-        for section in sections:
+            if section["id"] == section_id:
 
 
-            if section.get("id") == section_id:
+                for entry in section["items"]:
 
-
-                for entry in section.get(
-                    "items",
-                    []
-                ):
 
 
                     item = xbmcgui.ListItem(
-                        label=entry.get(
-                            "title",
-                            "No Title"
-                        )
+                        label=entry["title"]
                     )
 
 
@@ -189,20 +145,15 @@ class Router:
                         url = (
                             self.base_url
                             + "?action=anilist&type="
-                            + entry.get(
-                                "type",
-                                "trending"
-                            )
+                            + entry["type"]
                         )
 
 
                     else:
 
 
-                        url = entry.get(
-                            "action",
-                            ""
-                        )
+                        url = entry["action"]
+
 
 
 
@@ -224,87 +175,104 @@ class Router:
 
 
 
+
+
     def open_anilist(self):
 
 
-        try:
-
-            from resources.lib.providers import anilist
+        from resources.lib.providers import anilist
 
 
-            anime_type = self.params.get(
-                "type",
-                "trending"
+        anime_type = self.params.get(
+            "type"
+        )
+
+
+
+        if anime_type == "popular":
+
+            results = anilist.popular()
+
+
+        elif anime_type == "top":
+
+            results = anilist.top()
+
+
+        elif anime_type == "movies":
+
+            results = anilist.movies()
+
+
+        elif anime_type == "season":
+
+            results = anilist.season()
+
+
+        elif anime_type == "action":
+
+            results = anilist.action()
+
+
+        elif anime_type == "comedy":
+
+            results = anilist.comedy()
+
+
+        elif anime_type == "isekai":
+
+            results = anilist.isekai()
+
+
+        else:
+
+            results = anilist.trending()
+
+
+
+
+
+        for anime in results:
+
+
+            title = anime["title"]
+
+
+
+            item = xbmcgui.ListItem(
+                label=title
             )
 
 
-            if anime_type == "popular":
 
-                results = anilist.popular()
-
-
-            elif anime_type == "top":
-
-                results = anilist.top()
-
-
-            else:
-
-                results = anilist.trending()
-
-
-
-
-
-            for anime in results:
-
-
-                title = anime["title"]
-
-
-                item = xbmcgui.ListItem(
-                    label=title
-                )
-
-
-                item.setArt(
-                    {
-                        "poster": anime["poster"],
-                        "thumb": anime["poster"]
-                    }
-                )
-
-
-                url = (
-                    "plugin://plugin.video.themoviedb.helper/"
-                    "?info=search"
-                    "&tmdb_type=tv"
-                    "&query="
-                    + urllib.parse.quote(
-                        title
-                    )
-                )
-
-
-                xbmcplugin.addDirectoryItem(
-                    self.handle,
-                    url,
-                    item,
-                    True
-                )
-
-
-
-
-        except Exception as e:
-
-
-            xbmcgui.Dialog().notification(
-                "AniList",
-                "Connection Error",
-                xbmcgui.NOTIFICATION_ERROR,
-                5000
+            item.setArt(
+                {
+                    "poster": anime["poster"],
+                    "thumb": anime["poster"]
+                }
             )
+
+
+
+            url = (
+                "plugin://plugin.video.themoviedb.helper/"
+                "?info=search"
+                "&tmdb_type=tv"
+                "&query="
+                + urllib.parse.quote(
+                    title
+                )
+            )
+
+
+
+            xbmcplugin.addDirectoryItem(
+                self.handle,
+                url,
+                item,
+                True
+            )
+
 
 
 

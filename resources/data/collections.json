@@ -27,9 +27,9 @@
 
 
         {
-            "id": "tv",
+            "id": "shows",
             "title": "TV Shows",
-            "image": "tv.png",
+            "image": "shows.png",
             "items": [
 
                 {
@@ -58,21 +58,51 @@
             "items": [
 
                 {
-                    "title": "🔥 Trending Anime",
+                    "title": "Trending Anime",
                     "provider": "anilist",
                     "type": "trending"
                 },
 
                 {
-                    "title": "⭐ Popular Anime",
+                    "title": "Popular Anime",
                     "provider": "anilist",
                     "type": "popular"
                 },
 
                 {
-                    "title": "🏆 Top Rated Anime",
+                    "title": "Top Rated Anime",
                     "provider": "anilist",
                     "type": "top"
+                },
+
+                {
+                    "title": "Anime Movies",
+                    "provider": "anilist",
+                    "type": "movies"
+                },
+
+                {
+                    "title": "This Season",
+                    "provider": "anilist",
+                    "type": "season"
+                },
+
+                {
+                    "title": "Action Anime",
+                    "provider": "anilist",
+                    "type": "action"
+                },
+
+                {
+                    "title": "Comedy Anime",
+                    "provider": "anilist",
+                    "type": "comedy"
+                },
+
+                {
+                    "title": "Isekai Anime",
+                    "provider": "anilist",
+                    "type": "isekai"
                 }
 
             ]

@@ -5,26 +5,32 @@ import urllib.request
 URL = "https://graphql.anilist.co"
 
 
-def request(sort):
+
+def request(extra):
+
 
     query = """
     query {
       Page(page: 1, perPage: 25) {
         media(
           type: ANIME,
-          sort: [%s]
+          %s
         ) {
+
           title {
             romaji
             english
           }
+
           coverImage {
             large
           }
+
         }
       }
     }
-    """ % sort
+    """ % extra
+
 
 
     payload = json.dumps(
@@ -34,6 +40,7 @@ def request(sort):
     ).encode(
         "utf-8"
     )
+
 
 
     req = urllib.request.Request(
@@ -47,10 +54,12 @@ def request(sort):
         "application/json"
     )
 
+
     req.add_header(
         "User-Agent",
         "KodiCollections/1.0"
     )
+
 
 
     response = urllib.request.urlopen(
@@ -65,7 +74,9 @@ def request(sort):
     )
 
 
+
     results = []
+
 
 
     for anime in data["data"]["Page"]["media"]:
@@ -85,7 +96,9 @@ def request(sort):
         )
 
 
+
     return results
+
 
 
 
@@ -93,7 +106,7 @@ def request(sort):
 def trending():
 
     return request(
-        "TRENDING_DESC"
+        "sort: [TRENDING_DESC]"
     )
 
 
@@ -101,7 +114,7 @@ def trending():
 def popular():
 
     return request(
-        "POPULARITY_DESC"
+        "sort: [POPULARITY_DESC]"
     )
 
 
@@ -109,5 +122,61 @@ def popular():
 def top():
 
     return request(
-        "SCORE_DESC"
+        "sort: [SCORE_DESC]"
+    )
+
+
+
+def movies():
+
+    return request(
+        """
+        format: MOVIE,
+        sort: [POPULARITY_DESC]
+        """
+    )
+
+
+
+def season():
+
+    return request(
+        """
+        season: SUMMER,
+        seasonYear: 2026,
+        sort: [POPULARITY_DESC]
+        """
+    )
+
+
+
+def action():
+
+    return request(
+        """
+        genre: "Action",
+        sort: [POPULARITY_DESC]
+        """
+    )
+
+
+
+def comedy():
+
+    return request(
+        """
+        genre: "Comedy",
+        sort: [POPULARITY_DESC]
+        """
+    )
+
+
+
+def isekai():
+
+    return request(
+        """
+        tag: "Isekai",
+        sort: [POPULARITY_DESC]
+        """
     )
