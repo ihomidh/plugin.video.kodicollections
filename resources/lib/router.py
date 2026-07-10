@@ -13,7 +13,6 @@ class Router:
     def __init__(self):
 
         self.handle = int(sys.argv[1])
-
         self.base_url = sys.argv[0]
 
         self.params = dict(
@@ -49,6 +48,7 @@ class Router:
 
 
 
+
     def load_collections(self):
 
         path = xbmcvfs.translatePath(
@@ -76,8 +76,8 @@ class Router:
 
 
 
-    def home(self):
 
+    def home(self):
 
         for section in self.load_collections():
 
@@ -102,7 +102,6 @@ class Router:
             )
 
 
-
         xbmcplugin.endOfDirectory(
             self.handle
         )
@@ -115,7 +114,6 @@ class Router:
 
 
     def open_section(self):
-
 
         section_id = self.params.get(
             "id"
@@ -134,7 +132,6 @@ class Router:
                     item = xbmcgui.ListItem(
                         label=entry["title"]
                     )
-
 
 
                     if entry.get("provider") == "anilist":
@@ -180,7 +177,6 @@ class Router:
 
     def open_anilist(self):
 
-
         from resources.lib.providers import anilist
 
 
@@ -211,9 +207,7 @@ class Router:
                     self.handle
                 )
 
-
                 return
-
 
 
             results = anilist.search(
@@ -228,11 +222,9 @@ class Router:
             results = anilist.popular()
 
 
-
         elif anime_type == "top":
 
             results = anilist.top()
-
 
 
         elif anime_type == "movies":
@@ -240,11 +232,9 @@ class Router:
             results = anilist.movies()
 
 
-
         elif anime_type == "season":
 
             results = anilist.season()
-
 
 
         elif anime_type == "action":
@@ -252,17 +242,14 @@ class Router:
             results = anilist.action()
 
 
-
         elif anime_type == "comedy":
 
             results = anilist.comedy()
 
 
-
         elif anime_type == "isekai":
 
             results = anilist.isekai()
-
 
 
         else:
@@ -282,16 +269,15 @@ class Router:
             title = anime["title"]
 
 
-
             item = xbmcgui.ListItem(
                 label=title
             )
 
 
 
-
             item.setArt(
                 {
+
                     "poster":
                     anime.get(
                         "poster",
@@ -309,8 +295,10 @@ class Router:
                         "fanart",
                         ""
                     )
+
                 }
             )
+
 
 
 
@@ -318,7 +306,9 @@ class Router:
             rating = 0
 
 
-            if anime.get("score"):
+            if anime.get(
+                "score"
+            ):
 
 
                 rating = (
@@ -338,13 +328,11 @@ class Router:
                     "title":
                     title,
 
-
                     "plot":
                     anime.get(
                         "plot",
                         ""
                     ),
-
 
                     "year":
                     anime.get(
@@ -352,10 +340,8 @@ class Router:
                         0
                     ),
 
-
                     "rating":
                     rating,
-
 
                     "genre":
                     ", ".join(
@@ -367,6 +353,7 @@ class Router:
 
                 }
             )
+
 
 
 
@@ -388,6 +375,7 @@ class Router:
                 "&query="
                 + search
             )
+
 
 
 
