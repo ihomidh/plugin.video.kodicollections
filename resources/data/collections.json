@@ -1,32 +1,84 @@
 {
-    "menus": [
+  "sections": [
+
+    {
+      "id": "trending",
+      "title": "Trending & Popular",
+      "image": "trending.png",
+      "items": [
+
         {
-            "id": "trending",
-            "title": "🔥 Trending"
+          "title": "Trending Movies",
+          "action": "plugin://plugin.video.themoviedb.helper/?info=trending_day&tmdb_type=movie"
         },
+
         {
-            "id": "popular",
-            "title": "⭐ Popular"
+          "title": "Trending This Week Movies",
+          "action": "plugin://plugin.video.themoviedb.helper/?info=trending_week&tmdb_type=movie"
         },
+
         {
-            "id": "new",
-            "title": "🆕 New Releases"
+          "title": "Popular Movies",
+          "action": "plugin://plugin.video.themoviedb.helper/?info=popular&tmdb_type=movie"
         },
+
         {
-            "id": "streaming",
-            "title": "📺 Streaming Services"
+          "title": "Trending TV Shows",
+          "action": "plugin://plugin.video.themoviedb.helper/?info=trending_week&tmdb_type=tv"
         },
+
         {
-            "id": "collections",
-            "title": "🎬 Collections"
-        },
-        {
-            "id": "genres",
-            "title": "🎭 Genres"
-        },
-        {
-            "id": "trakt",
-            "title": "❤️ Trakt"
+          "title": "Popular TV Shows",
+          "action": "plugin://plugin.video.themoviedb.helper/?info=popular&tmdb_type=tv"
         }
-    ]
+
+      ]
+    },
+
+
+    {
+      "id": "streaming",
+      "title": "Streaming Services",
+      "image": "streaming.png",
+      "items": [
+
+        {
+          "title": "Netflix Movies",
+          "action": "plugin://plugin.video.themoviedb.helper/?info=discover&tmdb_type=movie&with_watch_providers=8"
+        },
+
+        {
+          "title": "Disney+ Movies",
+          "action": "plugin://plugin.video.themoviedb.helper/?info=discover&tmdb_type=movie&with_watch_providers=337"
+        },
+
+        {
+          "title": "Prime Video Movies",
+          "action": "plugin://plugin.video.themoviedb.helper/?info=discover&tmdb_type=movie&with_watch_providers=9"
+        }
+
+      ]
+    },
+
+
+    {
+      "id": "collections",
+      "title": "Movie Collections",
+      "image": "collections.png",
+      "items": [
+
+        {
+          "title": "Marvel",
+          "action": "plugin://plugin.video.themoviedb.helper/?info=search&query=Marvel"
+        },
+
+        {
+          "title": "Star Wars",
+          "action": "plugin://plugin.video.themoviedb.helper/?info=search&query=Star Wars"
+        }
+
+      ]
+    }
+
+  ]
 }

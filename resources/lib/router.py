@@ -11,37 +11,61 @@ from resources.lib.json_loader import JsonLoader
 class Router:
 
     def __init__(self):
+
         self.handle = int(sys.argv[1])
-        self.params = dict(parse_qsl(sys.argv[2][1:]))
+
+        self.params = dict(
+            parse_qsl(sys.argv[2][1:])
+        )
 
         addon = xbmcaddon.Addon()
-        self.addon_path = addon.getAddonInfo("path")
+
+        self.path = addon.getAddonInfo("path")
+
 
     def run(self, argv):
 
         action = self.params.get("action")
 
-        if action == "open":
-            self.show_collection()
+        if action == "section":
+            self.open_section()
+
         else:
-            self.show_home()
+            self.home()
 
-    def show_home(self):
 
-        loader = JsonLoader(self.addon_path)
+    def home(self):
 
-        data = loader.load()
+        data = JsonLoader(
+            self.path
+        ).load()
 
-        menus = data.get("menus", [])
-
-        for menu in menus:
+        for section in data["sections"]:
 
             url = (
-                f"{sys.argv[0]}?"
-                f"action=open&id={menu['id']}"
+                sys.argv[0]
+                + "?action=section&id="
+                + section["id"]
             )
 
-            item = xbmcgui.ListItem(label=menu["title"])
+            item = xbmcgui.ListItem(
+                label=section["title"]
+            )
+
+            art = (
+                self.path
+                + "/resources/media/"
+                + section["image"]
+            )
+
+            item.setArt(
+                {
+                    "thumb": art,
+                    "icon": art,
+                    "poster": art,
+                    "fanart": art
+                }
+            )
 
             xbmcplugin.addDirectoryItem(
                 self.handle,
@@ -50,21 +74,46 @@ class Router:
                 True
             )
 
-        xbmcplugin.endOfDirectory(self.handle)
-
-    def show_collection(self):
-
-        collection = self.params.get("id")
-
-        item = xbmcgui.ListItem(
-            label=f"Selected: {collection}"
+        xbmcplugin.endOfDirectory(
+            self.handle
         )
 
-        xbmcplugin.addDirectoryItem(
-            self.handle,
-            "",
-            item,
-            False
-        )
 
-        xbmcplugin.endOfDirectory(self.handle)
+    def open_section(self):
+
+        section_id = self.params.get("id")
+
+        data = JsonLoader(
+            self.path
+        ).load()
+
+        for section in data["sections"]:
+
+            if section["id"] == section_id:
+
+                for entry in section["items"]:
+
+                    item = xbmcgui.ListItem(
+                        label=entry["title"]
+                    )
+
+                    item.setInfo(
+                        "video",
+                        {
+                            "title": entry["title"],
+                            "plot": entry.get("plot", "")
+                        }
+                    )
+
+                    url = entry["action"]
+
+                    xbmcplugin.addDirectoryItem(
+                        self.handle,
+                        url,
+                        item,
+                        True
+                    )
+
+        xbmcplugin.endOfDirectory(
+            self.handle
+        )
