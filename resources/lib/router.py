@@ -1,5 +1,3 @@
-import os
-
 import xbmcaddon
 import xbmcgui
 import xbmcplugin
