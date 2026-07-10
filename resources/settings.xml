@@ -11,6 +11,14 @@
             default=""
         />
 
+
+        <setting
+            id="trakt_user"
+            type="text"
+            label="Trakt Username"
+            default=""
+        />
+
     </category>
 
 </settings>

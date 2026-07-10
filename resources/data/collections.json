@@ -3,8 +3,12 @@
         {
             "id": "anime",
             "title": "Anime",
-            "image": "anime.png",
             "items": [
+
+                {
+                    "title": "Continue Watching",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=trakt_inprogress&type=tv"
+                },
 
                 {
                     "title": "Trending Anime",
@@ -61,13 +65,8 @@
                 },
 
                 {
-                    "title": "Continue Watching",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=trakt_progress&type=shows"
-                },
-
-                {
-                    "title": "Anime Watchlist",
-                    "action": "plugin://plugin.video.themoviedb.helper/?info=trakt_watchlist&type=shows"
+                    "title": "Trakt Watchlist",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=trakt_watchlist&type=tv"
                 }
             ]
         }
