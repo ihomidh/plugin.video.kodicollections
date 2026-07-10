@@ -1,84 +1,129 @@
 {
-  "sections": [
-
-    {
-      "id": "trending",
-      "title": "Trending & Popular",
-      "image": "trending.png",
-      "items": [
+    "sections": [
 
         {
-          "title": "Trending Movies",
-          "action": "plugin://plugin.video.themoviedb.helper/?info=trending_day&tmdb_type=movie"
+            "id": "movies",
+            "title": "Movies",
+            "image": "movies.png",
+            "items": [
+
+                {
+                    "title": "Trending Movies",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=trending&tmdb_type=movie"
+                },
+
+                {
+                    "title": "Popular Movies",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=popular&tmdb_type=movie"
+                },
+
+                {
+                    "title": "Top Rated Movies",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=top_rated&tmdb_type=movie"
+                }
+
+            ]
         },
 
-        {
-          "title": "Trending This Week Movies",
-          "action": "plugin://plugin.video.themoviedb.helper/?info=trending_week&tmdb_type=movie"
-        },
 
         {
-          "title": "Popular Movies",
-          "action": "plugin://plugin.video.themoviedb.helper/?info=popular&tmdb_type=movie"
+            "id": "tv",
+            "title": "TV Shows",
+            "image": "tv.png",
+            "items": [
+
+                {
+                    "title": "Trending TV Shows",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=trending&tmdb_type=tv"
+                },
+
+                {
+                    "title": "Popular TV Shows",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=popular&tmdb_type=tv"
+                },
+
+                {
+                    "title": "Top Rated TV Shows",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=top_rated&tmdb_type=tv"
+                }
+
+            ]
         },
 
-        {
-          "title": "Trending TV Shows",
-          "action": "plugin://plugin.video.themoviedb.helper/?info=trending_week&tmdb_type=tv"
-        },
 
         {
-          "title": "Popular TV Shows",
-          "action": "plugin://plugin.video.themoviedb.helper/?info=popular&tmdb_type=tv"
+            "id": "anime",
+            "title": "Anime",
+            "image": "anime.png",
+            "items": [
+
+                {
+                    "title": "One Piece",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=tv&query=One%20Piece"
+                },
+
+                {
+                    "title": "Naruto",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=tv&query=Naruto"
+                },
+
+                {
+                    "title": "Attack On Titan",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=tv&query=Attack%20On%20Titan"
+                },
+
+                {
+                    "title": "Demon Slayer",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=tv&query=Demon%20Slayer"
+                },
+
+                {
+                    "title": "Jujutsu Kaisen",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=tv&query=Jujutsu%20Kaisen"
+                },
+
+                {
+                    "title": "Spirited Away",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=Spirited%20Away"
+                },
+
+                {
+                    "title": "My Neighbor Totoro",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=My%20Neighbor%20Totoro"
+                },
+
+                {
+                    "title": "Princess Mononoke",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=Princess%20Mononoke"
+                },
+
+                {
+                    "title": "Howl's Moving Castle",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=search&tmdb_type=movie&query=Howl%27s%20Moving%20Castle"
+                }
+
+            ]
+        },
+
+
+        {
+            "id": "trakt",
+            "title": "Trakt",
+            "image": "trakt.png",
+            "items": [
+
+                {
+                    "title": "Continue Watching",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=trakt_inprogress"
+                },
+
+                {
+                    "title": "Watchlist",
+                    "action": "plugin://plugin.video.themoviedb.helper/?info=trakt_watchlist"
+                }
+
+            ]
         }
 
-      ]
-    },
-
-
-    {
-      "id": "streaming",
-      "title": "Streaming Services",
-      "image": "streaming.png",
-      "items": [
-
-        {
-          "title": "Netflix Movies",
-          "action": "plugin://plugin.video.themoviedb.helper/?info=discover&tmdb_type=movie&with_watch_providers=8"
-        },
-
-        {
-          "title": "Disney+ Movies",
-          "action": "plugin://plugin.video.themoviedb.helper/?info=discover&tmdb_type=movie&with_watch_providers=337"
-        },
-
-        {
-          "title": "Prime Video Movies",
-          "action": "plugin://plugin.video.themoviedb.helper/?info=discover&tmdb_type=movie&with_watch_providers=9"
-        }
-
-      ]
-    },
-
-
-    {
-      "id": "collections",
-      "title": "Movie Collections",
-      "image": "collections.png",
-      "items": [
-
-        {
-          "title": "Marvel",
-          "action": "plugin://plugin.video.themoviedb.helper/?info=search&query=Marvel"
-        },
-
-        {
-          "title": "Star Wars",
-          "action": "plugin://plugin.video.themoviedb.helper/?info=search&query=Star Wars"
-        }
-
-      ]
-    }
-
-  ]
+    ]
 }
